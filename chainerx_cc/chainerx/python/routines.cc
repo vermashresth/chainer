@@ -350,6 +350,22 @@ void InitChainerxManipulation(pybind11::module& m) {
           [](const ArrayBodyPtr& a, int8_t axes) { return MoveArrayBody(Transpose(Array{a}, {axes})); },
           py::arg("a"),
           py::arg("axes") = nullptr);
+    m.def("pad",
+          [](const ArrayBodyPtr& a, int8_t pad_width, const std::string& mode, int64_t constant_values) {
+              return MoveArrayBody(Pad(Array{a}, pad_width, mode, constant_values));
+          },
+          py::arg("a"),
+          py::arg("pad_width"),
+          py::arg("mode"),
+          py::arg("constant_values"));
+    m.def("pad",
+          [](const ArrayBodyPtr& a, const std::vector<int8_t> pad_width, const std::string& mode, const std::vector<int64_t> constant_values) {
+              return MoveArrayBody(Pad(Array{a}, pad_width, mode, constant_values));
+          },
+          py::arg("a"),
+          py::arg("pad_width"),
+          py::arg("mode"),
+          py::arg("constant_values"));
     m.def("reshape",
           [](const ArrayBodyPtr& a, py::tuple newshape) { return MoveArrayBody(Reshape(Array{a}, ToShape(newshape))); },
           py::arg("a"),
