@@ -351,7 +351,7 @@ void InitChainerxManipulation(pybind11::module& m) {
           py::arg("a"),
           py::arg("axes") = nullptr);
     m.def("pad",
-          [](const ArrayBodyPtr& a, int8_t pad_width, const std::string& mode, int64_t constant_values) {
+          [](const ArrayBodyPtr& array, int8_t pad_width, const std::string& mode, int64_t constant_values) {
               PadMode pad_mode{};
               if (mode == "constant") {
                   pad_mode = PadMode::constant;
